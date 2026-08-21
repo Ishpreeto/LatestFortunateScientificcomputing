@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Raj Travel"
+description = "A premium luxury travel brand website for Raj Travel, presenting thoughtfully curated journeys, destinations, experiences, and seamless travel planning with a refined black-and-gold identity."
+version = "1.0.0"
+id = "artifacts/raj-travel"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 18984
+
+[services.development]
+run = "pnpm --filter @workspace/raj-travel run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/raj-travel", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/raj-travel/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "18984"
+BASE_PATH = "/"
