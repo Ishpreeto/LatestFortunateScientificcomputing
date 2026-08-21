@@ -1,0 +1,29 @@
+kind = "video"
+previewPath = "/raj-travel-film/"
+title = "Raj Travel — Journeys, Redefined"
+description = "A short cinematic animated brand film for Raj Travel, expressing its premium black-and-gold identity through editorial travel imagery, refined typography, and seamless motion."
+version = "1.0.0"
+id = "artifacts/raj-travel-film"
+router = "path"
+videoAspectRatio = "16:9"
+
+[[services]]
+name = "web"
+paths = [ "/raj-travel-film/" ]
+localPort = 23400
+
+[services.development]
+run = "pnpm --filter @workspace/raj-travel-film run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/raj-travel-film", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/raj-travel-film/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "23400"
+BASE_PATH = "/raj-travel-film/"
